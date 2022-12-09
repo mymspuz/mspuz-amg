@@ -1,0 +1,10 @@
+/logo/
+/client/node_modules/
+/client/build/
+/server/dist/
+/server/node_modules/
+/server/.env
+/server/.env.development
+/server/.env.production
+/server/prisma/migrations/
+/.idea/
