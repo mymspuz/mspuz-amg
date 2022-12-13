@@ -7,13 +7,15 @@ type TInitialState = {
     fontFamily: string
     borderRadius: number
     opened: boolean
+    openedChatSidebar: boolean
 }
 
 const initialState: TInitialState = {
     isOpen: [],
     fontFamily: fontFamily,
     borderRadius: borderRadius,
-    opened: true
+    opened: true,
+    openedChatSidebar: true
 }
 
 const customizationSlice = createSlice({
@@ -22,6 +24,9 @@ const customizationSlice = createSlice({
     reducers: {
         menuOpen: (state, action) => {
             state.isOpen = [action.payload]
+        },
+        chatOpen: (state, action) => {
+            state.openedChatSidebar = action.payload
         },
         setStoreMenu: (state, action) => {
             state.opened = action.payload
@@ -35,6 +40,6 @@ const customizationSlice = createSlice({
     }
 })
 
-export const { menuOpen, setStoreMenu, setStoreFontFamily, setStoreBorderRadius } = customizationSlice.actions
+export const { menuOpen, chatOpen, setStoreMenu, setStoreFontFamily, setStoreBorderRadius } = customizationSlice.actions
 
 export default customizationSlice.reducer

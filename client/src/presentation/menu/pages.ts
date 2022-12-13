@@ -1,7 +1,7 @@
 import { IconChartInfographic, IconFileInfo, IconCertificate } from '@tabler/icons'
 
 import { MenuType } from './menuType'
-import {Role} from "../../data/AuthTypes";
+import { Role } from '../../data/AuthTypes'
 
 const pages: MenuType = {
     id: 'pages',

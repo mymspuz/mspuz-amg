@@ -91,6 +91,13 @@ const themeTypography = (theme: any) => {
             marginRight: '20px',
             borderRadius: '12px'
         },
+        mainContentChat: {
+            paddingLeft: '24px',
+            transition: 'margin 200ms cubic-bezier(0, 0, 0.2, 1) 0ms',
+            marginLeft: '0px',
+            minHeight: 'calc(100vh - 205px)',
+            flexGrow: 1,
+        },
         menuCaption: {
             fontSize: '0.875rem',
             fontWeight: 500,

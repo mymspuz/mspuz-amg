@@ -39,7 +39,10 @@ const componentStyleOverrides = (theme: any) => {
         MuiCardContent: {
             styleOverrides: {
                 root: {
-                    padding: '24px'
+                    padding: '24px',
+                    // '&:last-child': {
+                    //     paddingBottom: '0px'
+                    // }
                 }
             }
         },

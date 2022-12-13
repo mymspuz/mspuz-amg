@@ -9,15 +9,14 @@ import { baseName } from '../../presentation/theme/constants'
 import NavigationScroll from '../../presentation/layout/NavigationScroll'
 import MinimalLayout from '../../presentation/layout/MinimalLayout'
 import { Loadable } from '../../presentation/components'
-import { BankStatements } from '../../presentation/pages/Dashboard'
 import MainLayout from '../../presentation/layout/MainLayout'
-import MakeSignIn from "../pages/MakeSignIn";
-import { ProtectionRoute } from "../components";
-import { Role } from "../../data/AuthTypes";
-import ListDocsPage from "../../presentation/pages/Dashboard/admin/ListDocsPage";
+import MakeSignIn from '../pages/MakeSignIn'
+import { ProtectionRoute } from '../components'
+import { Role } from '../../data/AuthTypes'
 
 const MainRouter: React.FC = () => {
     const customization = useAppSelector((state) => state.customization)
+
     const AuthSignIn = Loadable(lazy(() => import('../../presentation/pages/Auth/SignIn')))
     const AuthSignUp = Loadable(lazy(() => import('../../presentation/pages/Auth/SignUp')))
     const AuthChangePassword = Loadable(lazy(() => import('../../presentation/pages/Auth/ChangePassword')))
@@ -30,6 +29,10 @@ const MainRouter: React.FC = () => {
 
     const ServicePage = Loadable(lazy(() => import('../../presentation/pages/Dashboard/service/ServicePage')))
 
+    const ChatPage = Loadable(lazy(() => import('../../presentation/pages/Dashboard/chat/index')))
+
+    const ListAllDocsPage = Loadable(lazy(() => import('../../presentation/pages/Dashboard/admin/ListDocsPage')))
+
     return (
         <BrowserRouter basename={baseName}>
             <StyledEngineProvider injectFirst>
@@ -39,14 +42,16 @@ const MainRouter: React.FC = () => {
                         <Routes>
                             <Route path='/' element={<ProtectionRoute role={ [Role.ADMIN, Role.USER] }><MainLayout /></ProtectionRoute>} >
                                 <Route index element={<ProtectionRoute role={ [Role.ADMIN, Role.USER] }><DefaultPage /></ProtectionRoute>} />
+                                <Route path='/chat' element={<ProtectionRoute role={ [Role.ADMIN, Role.USER] }><ChatPage /></ProtectionRoute>} />
+
                                 <Route path='/dashboard/loading/bank-statements' element={<ProtectionRoute role={ [Role.USER] }><BankStatementsPage /></ProtectionRoute>} />
                                 <Route path='/dashboard/loading/sales-documents' element={<ProtectionRoute role={ [Role.USER] }><SalesDocumentsPage /></ProtectionRoute>} />
                                 <Route path='/dashboard/loading/purchase-documents' element={<ProtectionRoute role={ [Role.USER] }><PurchaseDocumentsPage /></ProtectionRoute>} />
                                 <Route path='/dashboard/loading/personal-documents' element={<ProtectionRoute role={ [Role.USER] }><PersonalDocumentsPage /></ProtectionRoute>} />
 
-                                <Route path='/page/services' element={<ProtectionRoute role={ [Role.USER] }><ServicePage /></ProtectionRoute>} />
+                                <Route path='/dashboard/admin/docs' element={<ProtectionRoute role={ [Role.ADMIN] }><ListAllDocsPage /></ProtectionRoute>} />
 
-                                <Route path='/dashboard/admin/docs' element={<ProtectionRoute role={ [Role.ADMIN] }><ListDocsPage /></ProtectionRoute>} />
+                                <Route path='/page/services' element={<ProtectionRoute role={ [Role.USER] }><ServicePage /></ProtectionRoute>} />
                             </Route>
                             <Route path='/auth' element={ <MinimalLayout /> }>
                                 <Route path='/auth/signin' element={<MakeSignIn />} />

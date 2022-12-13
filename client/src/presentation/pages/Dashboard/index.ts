@@ -1,2 +1,7 @@
-export { default as Main } from './Main'
 export { default as BankStatements } from './loading/BankStatements'
+export { default as DocsPurchase } from './loading/DocsPurchase'
+export { default as DocsSales } from './loading/DocsSales'
+export { default as DocsPersonal } from './loading/DocsPersonal'
+export { default as ListDocsPage } from './admin/ListDocsPage'
+export { default as ServicePage } from './service/ServicePage'
+export { default as Chat } from './chat'

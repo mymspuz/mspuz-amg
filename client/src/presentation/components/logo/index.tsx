@@ -4,7 +4,7 @@ import logo from '../../../assets/images/logo.png'
 
 const Logo: React.FC = () => {
     return (
-        <img src={logo} alt="AMG" width="100" />
+        <img src={logo} alt="AMG" width="70" />
     )
 }
 

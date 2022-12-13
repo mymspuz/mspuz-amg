@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
-import {styled, Theme, useTheme} from '@mui/material/styles'
+import { styled, Theme, useTheme } from '@mui/material/styles'
 import { AppBar, Box, CssBaseline, Toolbar, useMediaQuery } from '@mui/material'
 
 import { Breadcrumbs } from '../../components/extended/'

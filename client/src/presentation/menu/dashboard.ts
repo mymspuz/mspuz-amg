@@ -1,4 +1,4 @@
-import { IconDashboard } from '@tabler/icons'
+import { IconDashboard, IconMessages } from '@tabler/icons'
 
 import { MenuType } from './menuType'
 
@@ -13,6 +13,14 @@ const dashboard: MenuType = {
             type: 'item',
             url: '/',
             icon: IconDashboard,
+            breadcrumbs: false
+        },
+        {
+            id: 'page-chat',
+            title: 'Чат',
+            type: 'item',
+            url: '/chat',
+            icon: IconMessages,
             breadcrumbs: false
         }
     ]
