@@ -1,10 +1,10 @@
 import {Body, Controller, Get, Post, Query} from '@nestjs/common'
 
-import { Integration1сService } from './integration1с.service'
+import { IntegrationService } from './integration.service'
 
 @Controller('1c')
-export class Integration1сController {
-    constructor(private integration1CService: Integration1сService) {}
+export class IntegrationController {
+    constructor(private integration1CService: IntegrationService) {}
 
     @Post()
     setInfoClient(

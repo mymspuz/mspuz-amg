@@ -33,6 +33,8 @@ import {useAppDispatch, useAppSelector} from "../../../../../hooks";
 import themeTypography from "../../../../theme/typography";
 import {setCurrentAccountAdapter} from "../../../../../data/localstorage/CurrentAccountAdapter";
 import {clearAll} from "../../../../../store/slice/authSlice";
+import {setChatDialogs, setChatSelectDialog} from "../../../../../store/slice/chatSlice";
+import {useChat} from "../../../../../hooks/useChat";
 
 const ProfileSection = () => {
     const theme = useTheme()
@@ -49,9 +51,14 @@ const ProfileSection = () => {
 
     const anchorRef = useRef<any>(null)
 
+    const { chatActions } = useChat()
+
     const handleLogout = async () => {
         setCurrentAccountAdapter({ token: '' })
         dispatch(clearAll())
+        dispatch(setChatDialogs([]))
+        dispatch(setChatSelectDialog(0))
+        chatActions.disconnect()
         navigate('/auth/signin')
     }
 

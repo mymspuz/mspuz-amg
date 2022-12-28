@@ -1,5 +1,5 @@
 import React, { lazy } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import { CssBaseline, StyledEngineProvider } from '@mui/material'
 
@@ -34,7 +34,7 @@ const MainRouter: React.FC = () => {
     const ListAllDocsPage = Loadable(lazy(() => import('../../presentation/pages/Dashboard/admin/ListDocsPage')))
 
     return (
-        <BrowserRouter basename={baseName}>
+        <HashRouter basename={baseName}>
             <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={themes(customization)}>
                     <CssBaseline />
@@ -63,7 +63,7 @@ const MainRouter: React.FC = () => {
                     </NavigationScroll>
                 </ThemeProvider>
             </StyledEngineProvider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 

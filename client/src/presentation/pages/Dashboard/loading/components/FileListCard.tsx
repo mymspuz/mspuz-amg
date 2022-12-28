@@ -364,6 +364,9 @@ const FileListCard = ({ typeDoc }: { typeDoc: TTypeDocs }) => {
     }
 
     const handleChipDelete = (chipToDelete: TChipData) => () => {
+        if (typeDoc && chipToDelete.key === 4) {
+            return
+        }
         setChipData(chipData.filter((chip) => chip.key !== chipToDelete.key))
     }
 
@@ -394,7 +397,7 @@ const FileListCard = ({ typeDoc }: { typeDoc: TTypeDocs }) => {
     }
 
     const handleResetFilter = () => {
-        setChipData([])
+        typeDoc ? setChipData([{ key: 4, label: 'Тип', color: 'primary' }]) : setChipData([])
     }
 
     const handleMultiSelectRemove = () => {
@@ -671,15 +674,25 @@ const FileListCard = ({ typeDoc }: { typeDoc: TTypeDocs }) => {
                                                     >
                                                         {chipData.map((data) => {
                                                             return (
-                                                                auth.role === 'ADMIN' && (
-                                                                    <ListItem key={data.key}>
-                                                                        <Chip
-                                                                            label={data.label}
-                                                                            color={data.color}
-                                                                            onDelete={handleChipDelete(data)}
-                                                                        />
-                                                                    </ListItem>
-                                                                )
+                                                                    data.key === 4
+                                                                        ?
+                                                                            auth.role === 'ADMIN' && (
+                                                                            <ListItem key={data.key}>
+                                                                                <Chip
+                                                                                    label={data.label}
+                                                                                    color={data.color}
+                                                                                    onDelete={handleChipDelete(data)}
+                                                                                />
+                                                                            </ListItem>
+                                                                        )
+                                                                        :
+                                                                            <ListItem key={data.key}>
+                                                                                <Chip
+                                                                                    label={data.label}
+                                                                                    color={data.color}
+                                                                                    onDelete={handleChipDelete(data)}
+                                                                                />
+                                                                            </ListItem>
                                                             )
                                                         })}
                                                     </Paper>

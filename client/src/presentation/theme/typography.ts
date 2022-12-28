@@ -92,7 +92,7 @@ const themeTypography = (theme: any) => {
             borderRadius: '12px'
         },
         mainContentChat: {
-            paddingLeft: '24px',
+            // paddingLeft: '24px',
             transition: 'margin 200ms cubic-bezier(0, 0, 0.2, 1) 0ms',
             marginLeft: '0px',
             minHeight: 'calc(100vh - 205px)',

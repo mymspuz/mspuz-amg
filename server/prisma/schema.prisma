@@ -13,13 +13,15 @@ enum Role {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  login     String   @unique
-  password  String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  Loaddocs  Loaddocs[]
+  id              Int              @id @default(autoincrement())
+  login           String           @unique
+  password        String
+  role            Role             @default(USER)
+  createdAt       DateTime         @default(now())
+  updateAt        DateTime         @updatedAt
+  Loaddocs        Loaddocs[]
+  Chat            Chat[]
+  Chat_last_visit Chat_last_visit?
 }
 
 model Loaddocs {
@@ -35,4 +37,26 @@ model Loaddocs {
   status     Int      @default(0)
 
   @@unique([type, name, userId])
+}
+
+model Chat {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  role      Role
+  message   String
+  archive   Boolean  @default(false)
+  status    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+}
+
+model Chat_last_visit {
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  connect   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  @@unique([userId])
 }

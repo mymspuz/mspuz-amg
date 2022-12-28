@@ -3,7 +3,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import {
     customizationReducer,
     authReducer,
-    errorReducer
+    errorReducer,
+    chatReducer
 } from './slice'
 import { authApi } from './queries/auth.queri'
 import { docsApi } from './queries/docs.queri'
@@ -13,6 +14,7 @@ export const store = configureStore({
     reducer: {
         customization: customizationReducer,
         auth: authReducer,
+        chat: chatReducer,
         error: errorReducer,
         [authApi.reducerPath]: authApi.reducer,
         [docsApi.reducerPath]: docsApi.reducer

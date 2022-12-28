@@ -8,7 +8,8 @@ import { JwtStrategy } from './auth/jwt.strategy'
 import { FileModule } from './service/file/file.module'
 import { StatementsModule } from './docs/statements/statements.module'
 import { EmailModule } from './service/email/email.module'
-import { Integration1сModule } from './integration1с/integration1с.module'
+import { IntegrationModule } from './integration/integration.module'
+import { ChatModule } from './chat/chat.module'
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { Integration1сModule } from './integration1с/integration1с.module'
       FileModule,
       EmailModule,
       StatementsModule,
-      Integration1сModule,
+      IntegrationModule,
+      ChatModule
   ],
   controllers: [],
   providers: [
