@@ -8,6 +8,7 @@ import {
 } from './slice'
 import { authApi } from './queries/auth.queri'
 import { docsApi } from './queries/docs.queri'
+import { dashboardClientApi } from './queries/dashboardClient.queri'
 import { rtkQueryErrorLogger } from './middleware/errorLogger'
 
 export const store = configureStore({
@@ -17,12 +18,14 @@ export const store = configureStore({
         chat: chatReducer,
         error: errorReducer,
         [authApi.reducerPath]: authApi.reducer,
-        [docsApi.reducerPath]: docsApi.reducer
+        [docsApi.reducerPath]: docsApi.reducer,
+        [dashboardClientApi.reducerPath]: dashboardClientApi.reducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware()
         .concat(rtkQueryErrorLogger)
         .concat(authApi.middleware)
-        .concat(docsApi.middleware),
+        .concat(docsApi.middleware)
+        .concat(dashboardClientApi.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>

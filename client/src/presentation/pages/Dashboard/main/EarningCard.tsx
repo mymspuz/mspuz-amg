@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import { styled, useTheme } from '@mui/material/styles'
 import { Avatar, Box, Grid, Menu, MenuItem, Typography } from '@mui/material'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -12,6 +12,12 @@ import EarningIcon from '../../../../assets/images/icons/earning.svg'
 import MainCard from  '../../../../presentation/components/cards/MainCard'
 import SkeletonEarningCard from '../../../components/cards/Skeleton/EarningCard'
 import themeTypography from "../../../theme/typography";
+import dayjs from "dayjs";
+import {
+    useGetBalanceBankLastQuery,
+    useLazyGetBalanceBankLastQuery
+} from "../../../../store/queries/dashboardClient.queri";
+import {TErrorRTKQuery} from "../../../../data/RTKQueryTypes";
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
@@ -53,10 +59,25 @@ type EarningCardProps = {
     isLoading: boolean
 }
 
+type TState = {
+    isLoading: boolean
+    isError: boolean
+    errorMsg: string
+    balanceBank: { value: number, updateAt: Date | null }
+}
+
 const EarningCard: React.FC<EarningCardProps> = ({ isLoading }: EarningCardProps) => {
     const theme = useTheme()
+    const [state, setState] = useState<TState>({
+        isLoading: true,
+        isError: false,
+        errorMsg: '',
+        balanceBank: { value: 0, updateAt: null }
+    })
 
     const [anchorEl, setAnchorEl] = useState(null)
+
+    const [getBalanceBankLast] = useLazyGetBalanceBankLastQuery()
 
     const handleClick = (event: any) => {
         setAnchorEl(event.currentTarget)
@@ -65,6 +86,27 @@ const EarningCard: React.FC<EarningCardProps> = ({ isLoading }: EarningCardProps
     const handleClose = () => {
         setAnchorEl(null)
     }
+
+    useEffect(() => {
+        setState({...state, isLoading: true, isError: false, errorMsg: ''})
+        getBalanceBankLast({ 'code': 'balance_bank_51' })
+            .unwrap()
+            .then((payload: any) => {
+                setState({
+                    ...state,
+                    isLoading: false,
+                    isError: false,
+                    balanceBank: { value: payload.value, updateAt: payload.updateAt }
+                })
+            })
+            .catch((error: TErrorRTKQuery) => {
+                if ('data' in error) {
+                    setState({...state, isLoading: false, isError: true, errorMsg: error.data.message})
+                } else {
+                    setState({...state, isLoading: false, isError: true, errorMsg: 'Ошибка сервера'})
+                }
+            })
+    }, [])
 
     return (
         <>
@@ -152,7 +194,7 @@ const EarningCard: React.FC<EarningCardProps> = ({ isLoading }: EarningCardProps
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            $500.00
+                                            {state.balanceBank.value}
                                         </Typography>
                                     </Grid>
                                     <Grid item>
@@ -177,7 +219,10 @@ const EarningCard: React.FC<EarningCardProps> = ({ isLoading }: EarningCardProps
                                         color: '#b39ddb'
                                     }}
                                 >
-                                    Total Earning
+                                    {state.balanceBank.updateAt
+                                        ? dayjs(state.balanceBank.updateAt).format('DD.MM.YYYY HH:mm:ss')
+                                        : <>No data</>
+                                    }
                                 </Typography>
                             </Grid>
                         </Grid>
